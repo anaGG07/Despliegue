@@ -1,0 +1,34 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: DockerfileFrontendAMG
+    ports:
+      - "3000:5173"
+    container_name: frontendAMG
+    networks:
+      - redwebAMG
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: DockerfileBackendAMG
+    ports:
+      - "8000:8000"
+    container_name: backendAMG
+    networks:
+      - redwebAMG
+
+  web:
+    build:
+      context: ./web
+      dockerfile: DockerfileWebAMG
+    ports:
+      - "80:80"
+    container_name: webAMG
+    networks:
+      - redwebAMG
+
+networks:
+  redwebAMG:
+    driver: bridge
