@@ -2,7 +2,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: DockerfileFrontendAMG
+      dockerfile: dockerfileFrontendAMG
     ports:
       - "3000:5173"
     container_name: frontendAMG
@@ -12,7 +12,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: DockerfileBackendAMG
+      dockerfile: dockerfileBackendAMG
     ports:
       - "8000:8000"
     container_name: backendAMG
@@ -22,7 +22,7 @@ services:
   web:
     build:
       context: ./web
-      dockerfile: DockerfileWebAMG
+      dockerfile: dockerfileWebAMG
     ports:
       - "80:80"
     container_name: webAMG
