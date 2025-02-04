@@ -1,0 +1,81 @@
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: DockerfileFrontendAMG
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    command: sh -c "npm install && npm start"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - redAMG
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: DockerfileBackendAMG
+    working_dir: /var/www/html
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      - APP_ENV=dev
+    depends_on:
+      - db
+    networks:
+      - redAMG
+
+  web:
+    build:
+      context: ./web
+      dockerfile: DockerfileWebAMG
+    volumes:
+      - ./web/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - '81:80'
+    depends_on:
+      - backend
+    networks:
+      - redAMG
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AMG_BD
+      MYSQL_USER: alumnoDAW
+      MYSQL_PASSWORD: passAMG
+    ports:
+      - '3306:3306'
+    networks:
+      - redAMG
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: alumnoDAW
+      PMA_PASSWORD: passAMG
+    depends_on:
+      - db
+    networks:
+      - redAMG
+
+volumes:
+  db_data:
+
+networks:
+  redAMG:
+    driver: bridge

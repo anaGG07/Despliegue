@@ -6,9 +6,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AMGController
 {
-    #[Route('/api/amg', name: 'amg_hello')]
+    #[Route('/api/AMG', name: 'amg_hello')]
     public function index(): Response
     {
-        return new Response('Symfony de Nombre Completo Responde a la llamada de React');
+        return new Response('Symfony de Ana María García García Responde a la llamada de React');
     }
 }
