@@ -20,11 +20,10 @@ services:
     build:
       context: ./backend
       dockerfile: DockerfileBackendAMG
-    working_dir: /var/www/html
     ports:
       - '8000:8000'
     volumes:
-      - ./backend:/var/www/html
+      - ./backend:/app
     environment:
       - APP_ENV=dev
     depends_on:
