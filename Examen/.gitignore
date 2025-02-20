@@ -1,0 +1,29 @@
+# Environment files
+.env
+.env.*
+!.env.template
+
+# SSL certificates
+web/ssl/
+*.crt
+*.key
+*.pem
+
+# Node modules
+node_modules/
+
+# Symfony
+/backend/var/
+/backend/vendor/
+.env.local
+.env.local.php
+.env.*.local
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
